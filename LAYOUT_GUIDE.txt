@@ -1,0 +1,117 @@
+PHD THESIS TEMPLATE - LAYOUT GUIDE (CURRENT REPO)
+=================================================
+
+DOCUMENT FLOW IN CURRENT SETUP
+------------------------------
+
+1. FRONT MATTER
+   - Cover page via maketitle
+   - Abstract
+   - Table of contents
+   - List of tables
+   - Nomenclature
+
+2. MAIN MATTER
+   - Part: Foundations
+     - Chapter 1
+     - Chapter 2
+     - Chapter 3
+   - Part: Applications
+     - Chapter 4
+     - Chapter 5
+     - Chapter 6
+     - Chapter 7
+
+3. BACK MATTER
+   - Bibliography from bibliography.bib
+   - Acknowledgments
+   - Dedication
+   - Vita
+   - Research achievements
+
+
+CURRENT TYPOGRAPHY AND PAGE STYLE
+---------------------------------
+
+- Document class: phdthesis.cls
+- Base size: 12pt
+- Font family: Times-style (times + mathptmx in class)
+- Line spacing: 1.5 in final mode, 2.0 in draft mode
+- Paper size: Letter (8.5 in x 11 in)
+- Header/footer: configured by fancyhdr in class file
+
+
+BIBLIOGRAPHY IN CURRENT REPO
+----------------------------
+
+- Main file uses:
+  - bibliographystyle{plainnat}
+  - bibliography{bibliography}
+- Citation package in class: natbib (numeric mode)
+
+
+CURRENT FILE ORGANIZATION
+-------------------------
+
+- overall_thesis.tex            Main thesis file
+- phdthesis.cls                Class definition
+- bibliography.bib             References database
+- Makefile                     Build commands
+- compile_chapter.sh           Chapter PDF builder
+- front_matter/
+  - abstract.tex
+  - nomenclature.tex
+  - acknowledgments.tex
+  - dedication.tex
+- chapters/
+  - chapter1/chapter1.tex
+  - chapter2/chapter2.tex
+  - chapter3/chapter3.tex
+  - chapter4/chapter4.tex
+  - chapter5/chapter5.tex
+  - chapter6/chapter6.tex
+  - chapter7/chapter7.tex
+
+Note: each chapter folder may contain a fig/ directory, but figure files are optional.
+
+
+BUILD COMMANDS
+--------------
+
+- make
+  Compile main thesis (two pdflatex passes)
+
+- make bib
+  Compile main thesis with bibtex and extra LaTeX passes
+  Then compile chapter PDFs in parallel
+
+- make chapter1 ... make chapter7
+  Compile individual chapter PDFs
+
+- make chapters
+  Compile all chapter PDFs
+
+- make clean
+  Remove auxiliary files
+
+
+OPTIONAL APPENDIX HANDLING
+--------------------------
+
+- Make targets appendixA and appendixB are optional.
+- If appendix files are missing, Make prints a skip message and continues.
+
+
+PDF OUTPUTS
+-----------
+
+- Main PDF: overall_thesis.pdf
+- Chapter PDFs: chapters/chapterX/chapterX.pdf
+
+
+MAINTENANCE NOTES
+-----------------
+
+- If bibliography style changes, update both overall_thesis.tex and this guide.
+- If front matter sequence changes, update this guide and README together.
+- Keep command examples aligned with Makefile targets.

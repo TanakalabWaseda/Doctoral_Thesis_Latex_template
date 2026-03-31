@@ -1,0 +1,461 @@
+% ============================================================================
+% Quick Reference Guide for phdthesis.cls
+% ============================================================================
+
+QUICK START
+-----------
+1. Copy phdthesis.cls to your thesis directory
+2. Copy thesis_template.tex as your starting point
+3. Edit the preamble with your information
+4. Replace dummy content with your thesis content
+5. Compile with: pdflatex thesis_template.tex (run twice)
+
+
+DOCUMENT STRUCTURE
+------------------
+\documentclass[options]{phdthesis}
+
+% Preamble: Set information
+\title{...}
+\author{...}
+\university{...}
+\department{...}
+\degree{Doctor of Philosophy}
+\degreefield{...}
+\submitdate{Month Year}
+\advisor{...}
+
+\begin{document}
+
+  % FRONT MATTER
+  \frontmatter
+  \maketitle
+  \makecopyright                    % Optional
+  \makesignature                    % Optional
+  
+  \begin{abstract}...\end{abstract}
+  \begin{dedication}...\end{dedication}        % Optional
+  \begin{acknowledgments}...\end{acknowledgments}
+  
+  \tableofcontents
+  \listoffigures
+  \listoftables
+  
+  \begin{nomenclature}...\end{nomenclature}    % Optional
+  
+  % MAIN CONTENT
+  \mainmatter
+  \chapter{...}
+  \section{...}
+  \subsection{...}
+  
+  % REFERENCES
+  \begin{thebibliography}{99}
+    \bibitem{...} ...
+  \end{thebibliography}
+  
+  % APPENDICES
+  \appendix
+  \chapter{...}
+  
+  % VITA
+  \begin{vita}...\end{vita}
+
+\end{document}
+
+
+CLASS OPTIONS
+-------------
+[oneside]      - Single-sided printing (default)
+[twoside]      - Double-sided printing
+[draft]        - Draft mode: double spacing + watermark
+[final]        - Final mode: 1.5 spacing (default)
+[nohyperref]   - Disable hyperref package
+
+
+FRONT MATTER COMMANDS
+---------------------
+\maketitle                          - Generate cover page
+\makecopyright                      - Generate copyright page
+\makesignature                      - Generate signature page
+
+\begin{abstract}...\end{abstract}
+\begin{dedication}...\end{dedication}
+\begin{acknowledgments}...\end{acknowledgments}
+\begin{nomenclature}
+  \item[symbol] description
+\end{nomenclature}
+
+
+SECTIONING
+----------
+\chapter{Title}
+\section{Title}
+\subsection{Title}
+\subsubsection{Title}
+\paragraph{Title}
+\subparagraph{Title}
+
+
+CROSS-REFERENCES
+----------------
+\label{type:name}                   - Create label
+\ref{type:name}                     - Reference number
+\pageref{type:name}                 - Reference page
+
+Suggested prefixes:
+  chap:    for chapters
+  sec:     for sections
+  fig:     for figures
+  tab:     for tables
+  eq:      for equations
+  alg:     for algorithms
+  app:     for appendices
+
+
+FIGURES
+-------
+% Single figure
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{filename}
+  \caption{Caption text.}
+  \label{fig:label}
+\end{figure}
+
+% Subfigures
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{file1}
+    \caption{Subcaption 1}
+    \label{fig:sub1}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{file2}
+    \caption{Subcaption 2}
+    \label{fig:sub2}
+  \end{subfigure}
+  \caption{Main caption.}
+  \label{fig:main}
+\end{figure}
+
+Placement options:
+  h - here (approximately)
+  t - top of page
+  b - bottom of page
+  p - separate page
+  ! - override internal parameters
+  H - HERE (requires \usepackage{float})
+
+
+TABLES
+------
+\begin{table}[htbp]
+  \centering
+  \caption{Caption text.}
+  \label{tab:label}
+  \begin{tabular}{lccr}
+    \toprule
+    Header 1 & Header 2 & Header 3 & Header 4 \\
+    \midrule
+    Data 1   & Data 2   & Data 3   & Data 4 \\
+    Data 5   & Data 6   & Data 7   & Data 8 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Table column alignment:
+  l - left aligned
+  c - center aligned
+  r - right aligned
+  p{width} - paragraph with specified width
+
+
+EQUATIONS
+---------
+% Inline equation
+The equation $E = mc^2$ shows...
+
+% Numbered equation
+\begin{equation}
+  E = mc^2
+  \label{eq:einstein}
+\end{equation}
+
+% Unnumbered equation
+\begin{equation*}
+  E = mc^2
+\end{equation*}
+
+% Multiple aligned equations
+\begin{align}
+  x &= a + b \label{eq:x} \\
+  y &= c + d \label{eq:y}
+\end{align}
+
+% Multiple equations, single number
+\begin{equation}
+\begin{aligned}
+  x &= a + b \\
+  y &= c + d
+\end{aligned}
+\end{equation}
+
+% Cases
+\begin{equation}
+f(x) = \begin{cases}
+  x^2 & \text{if } x \geq 0 \\
+  -x^2 & \text{if } x < 0
+\end{cases}
+\end{equation}
+
+
+LISTS
+-----
+% Itemized list
+\begin{itemize}
+  \item First item
+  \item Second item
+  \item Third item
+\end{itemize}
+
+% Enumerated list
+\begin{enumerate}
+  \item First item
+  \item Second item
+  \item Third item
+\end{enumerate}
+
+% Description list
+\begin{description}
+  \item[Term 1] Definition of term 1
+  \item[Term 2] Definition of term 2
+\end{description}
+
+
+THEOREM ENVIRONMENTS
+--------------------
+\begin{theorem}
+  Statement of theorem.
+\end{theorem}
+
+\begin{proof}
+  Proof content.
+\end{proof}
+
+Available environments:
+  theorem, lemma, proposition, corollary,
+  definition, example, remark
+
+
+CITATIONS & REFERENCES
+----------------------
+% Citation
+As shown in~\cite{smith2020}...
+Recent work~\cite{jones2021,brown2022} demonstrates...
+
+% Bibliography (IEEE Conference Style)
+\begin{thebibliography}{99}
+
+% Journal paper
+\bibitem{smith2020}
+J. Smith and A. Johnson,
+``Title of paper,''
+\textit{IEEE Trans. on Field},
+vol. 10, no. 5, pp. 123--145, May 2020.
+
+% Conference paper
+\bibitem{jones2021}
+B. Jones,
+``Conference paper title,''
+in \textit{Proc. IEEE Int. Conf. Topic},
+City, Country, Month Year, pp. 234--256.
+
+% Book
+\bibitem{brown2022}
+C. Brown,
+\textit{Book Title}.
+City: Publisher, Year.
+
+% Book chapter
+\bibitem{davis2020}
+D. Davis,
+``Chapter title,''
+in \textit{Book Title},
+E. Editor, Ed.
+City: Publisher, Year, ch. 5, pp. 100--125.
+
+% PhD Thesis
+\bibitem{wilson2019}
+F. Wilson,
+``Thesis title,''
+Ph.D. dissertation, Dept. Name, Univ. Name,
+City, State, Year.
+
+% Online
+\bibitem{garcia2021}
+G. Garcia,
+``Article title,''
+Website Name, Year. [Online].
+Available: https://www.example.com
+
+\end{thebibliography}
+
+
+APPENDICES
+----------
+\appendix
+\chapter{First Appendix Title}
+Content...
+
+\chapter{Second Appendix Title}
+Content...
+
+
+SPECIAL COMMANDS
+----------------
+\degree                             - Degree symbol: °
+\epigraph{quote}{author}           - Add epigraph
+
+\begin{inquote}
+  Formatted quote
+\end{inquote}
+
+
+MATH SYMBOLS
+------------
+Greek letters:
+  \alpha \beta \gamma \delta \epsilon \zeta \eta \theta
+  \iota \kappa \lambda \mu \nu \xi \pi \rho \sigma \tau
+  \upsilon \phi \chi \psi \omega
+  \Gamma \Delta \Theta \Lambda \Xi \Pi \Sigma \Upsilon
+  \Phi \Psi \Omega
+
+Operators:
+  \pm \mp \times \div \cdot \ast \star \circ \bullet
+  \cap \cup \uplus \sqcap \sqcup \vee \wedge
+  \setminus \wr \diamond \bigtriangleup \bigtriangledown
+  
+Relations:
+  \leq \geq \equiv \sim \simeq \approx \cong \neq
+  \subset \supset \subseteq \supseteq \in \notin
+  \forall \exists \nexists
+  
+Arrows:
+  \leftarrow \rightarrow \leftrightarrow
+  \Leftarrow \Rightarrow \Leftrightarrow
+  \uparrow \downarrow \updownarrow
+  
+Delimiters:
+  ( ) [ ] \{ \} \langle \rangle | \|
+  \left( \right) - auto-sizing
+  
+Functions:
+  \sin \cos \tan \arcsin \arccos \arctan
+  \sinh \cosh \tanh
+  \log \ln \exp
+  \min \max \sup \inf \lim
+  \det \dim \ker
+
+
+TEXT FORMATTING
+---------------
+\textbf{bold}
+\textit{italic}
+\texttt{typewriter}
+\underline{underlined}
+\emph{emphasized}
+
+Font sizes (smallest to largest):
+  \tiny \scriptsize \footnotesize \small
+  \normalsize \large \Large \LARGE \huge \Huge
+
+
+SPACING
+-------
+Horizontal:
+  \hspace{1cm}                      - Fixed space
+  \hfill                            - Fill available space
+  ~                                 - Non-breaking space
+
+Vertical:
+  \vspace{1cm}                      - Fixed space
+  \vfill                            - Fill available space
+  \smallskip \medskip \bigskip      - Small/medium/large skip
+  \newpage                          - Start new page
+  \clearpage                        - Clear all floats and start new page
+
+
+COMPILATION
+-----------
+Basic:
+  pdflatex filename.tex
+  pdflatex filename.tex             (run twice for references)
+
+With BibTeX:
+  pdflatex filename.tex
+  bibtex filename
+  pdflatex filename.tex
+  pdflatex filename.tex
+
+Clean auxiliary files:
+  rm *.aux *.log *.toc *.lof *.lot *.out *.bbl *.blg
+
+
+TROUBLESHOOTING
+---------------
+Issue: "Undefined control sequence"
+  → Check spelling of commands
+  → Ensure required packages are loaded
+
+Issue: "Missing $ inserted"
+  → Math commands must be in math mode: $...$
+
+Issue: Wrong figure/table numbers
+  → Compile twice to update references
+
+Issue: Bibliography not showing
+  → Run pdflatex → bibtex → pdflatex → pdflatex
+
+Issue: Overfull/Underfull hbox warnings
+  → Usually cosmetic, can ignore
+  → Or adjust text/add \linebreak
+
+Issue: Figure placement issues
+  → Use [htbp] for flexibility
+  → Consider [H] with float package
+  → Place figures near reference in text
+
+
+USEFUL PACKAGES (add to preamble)
+----------------------------------
+\usepackage{algorithm}              - Algorithm environments
+\usepackage{algorithmic}            - Algorithm formatting
+\usepackage{booktabs}               - Professional tables
+\usepackage{multirow}               - Multi-row table cells
+\usepackage{longtable}              - Tables spanning pages
+\usepackage{listings}               - Source code listings
+\usepackage{color,xcolor}           - Colors
+\usepackage{tikz}                   - Graphics and diagrams
+\usepackage{pgfplots}               - Plots and charts
+\usepackage{natbib}                 - Advanced citations
+\usepackage{siunitx}                - SI units formatting
+\usepackage{nomencl}                - Nomenclature (symbols list)
+
+
+BEST PRACTICES
+--------------
+1. Always use \label and \ref - never hardcode numbers
+2. Put each sentence on a new line in source (easier diff/version control)
+3. Use consistent naming for labels (fig:name, tab:name, eq:name)
+4. Save figures as vector graphics (PDF, EPS) when possible
+5. Compile frequently to catch errors early
+6. Use version control (git) for your thesis
+7. Keep a backup of your work
+8. Write abstract and conclusions last
+9. Have others proofread your work
+10. Verify formatting meets university requirements
+
+============================================================================

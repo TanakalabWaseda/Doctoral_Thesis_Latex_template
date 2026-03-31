@@ -1,0 +1,62 @@
+\documentclass{phdthesis}
+
+\title{A Placeholder Doctoral Thesis for Template Validation}
+\subtitle{Fake Content for Layout and Build Testing}
+\author{Template Author}
+\university{Example University}
+\department{Department of Placeholder Studies}
+\submitdate{March 2026}
+\advisor{Advisor Name}
+\advisorb{Committee Member B}
+\advisorc{Committee Member C}
+
+\begin{document}
+
+% Prevent duplicate hyperref page destinations in front matter (roman page resets).
+\providecommand{\hypersetup}[1]{}
+\hypersetup{pageanchor=false}
+
+\frontmatter
+\maketitle
+
+\include{front_matter/abstract}
+\tableofcontents
+\cleardoublepage
+\listoftables
+\cleardoublepage
+\include{front_matter/nomenclature}
+
+\cleardoublepage
+\hypersetup{pageanchor=true}
+
+\mainmatter
+
+\part{Foundations}
+\include{chapters/chapter1/chapter1}
+\include{chapters/chapter2/chapter2}
+\include{chapters/chapter3/chapter3}
+
+\part{Applications}
+\include{chapters/chapter4/chapter4}
+\include{chapters/chapter5/chapter5}
+\include{chapters/chapter6/chapter6}
+\include{chapters/chapter7/chapter7}
+
+\bibliographystyle{plainnat}
+\bibliography{bibliography}
+
+\include{front_matter/acknowledgments}
+\include{front_matter/dedication}
+
+\begin{vita}
+Template Author was born in Placeholder City. This biography is fake and intended only for thesis layout testing.
+\end{vita}
+
+\begin{achievements}
+\section*{Journal}
+\begin{achievementlist}
+\item Placeholder, ``A fake publication entry for formatting checks,'' 2026.
+\end{achievementlist}
+\end{achievements}
+
+\end{document}
