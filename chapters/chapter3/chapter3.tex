@@ -1,4 +1,5 @@
-\chapter{Methodology}
+\notedchapter{Methodology}{%
+Here is the part you mention which paper is included.}
 \label{chap:method}
 
 This chapter defines a fake end-to-end pipeline used only for template testing.
@@ -8,6 +9,24 @@ The pipeline contains preprocessing, model fitting, and post-analysis stages. Ea
 
 \section{Synthetic Data Construction}
 A mock dataset of 10,000 samples is described with balanced classes and controlled noise factors.
+
+
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \caption{}
+        \label{sub:left_gait_top}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.9\linewidth}
+        \centering
+        \caption{}
+        \label{sub:left_gait_side}
+    \end{subfigure}
+    \caption{Ankle trajectory extracted from database. The red arrow is the velocity of the ankle, the blue line is the foot direction, and the green line is the foot normal vector. (a) Top view showing lateral movement, (b) Left foot side view trajectory.}
+    \label{fig:gait_model}
+\end{figure}
 
 \section{Evaluation Metrics}
 Primary metrics are accuracy, RMSE, and latency. Secondary metrics include calibration and robustness under perturbation.

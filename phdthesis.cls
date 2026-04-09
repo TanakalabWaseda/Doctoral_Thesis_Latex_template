@@ -422,6 +422,19 @@
   {\Huge}
 \titlespacing*{\chapter}{0pt}{0pt}{2em}
 
+% Chapter title with paper-attribution footnote (Zhuang convention).
+% Usage: \notedchapter{Chapter Title}{Footnote text describing related papers}
+% The footnote on the chapter title is rendered as an asterisk (*), and
+% subsequent footnotes inside the chapter restart from 1.
+\newcommand{\notedchapter}[2]{%
+  \begingroup
+  \renewcommand{\thefootnote}{\fnsymbol{footnote}}%
+  \chapter[#1]{#1\protect\footnotemark}%
+  \footnotetext{#2}%
+  \endgroup
+  \setcounter{footnote}{0}%
+}
+
 % Section formatting
 \titleformat{\section}
   {\normalfont\Large\bfseries}
@@ -445,6 +458,14 @@
   {1em}
   {}
 \titlespacing*{\subsubsection}{0pt}{1em}{0.5em}
+
+% Paragraph formatting (title on its own line, text starts on next line)
+\titleformat{\paragraph}[block]
+  {\normalfont\normalsize\bfseries}
+  {\theparagraph}
+  {1em}
+  {}
+\titlespacing*{\paragraph}{0pt}{*2}{*0.5}
 
 % ============================================================================
 % FIGURE AND TABLE CAPTIONS
@@ -477,9 +498,15 @@
   labelfont=bf,
   textfont=normal,
   font=footnotesize,
-  labelsep=period,
+  labelformat=simple,
+  labelsep=space,
   justification=centering
 }
+% Subfigure label as (a),(b),... both in captions and cross-references
+\renewcommand\thesubfigure{(\alph{subfigure})}
+% Cross-reference format: Fig. 1.1 (a) — insert a thin space before the letter
+% Note: no \makeatletter/\makeatother needed inside a .cls file
+\renewcommand\p@subfigure{\thefigure\,}
 
 % ============================================================================
 % THEOREM ENVIRONMENTS
