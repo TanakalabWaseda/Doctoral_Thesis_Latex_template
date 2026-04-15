@@ -69,6 +69,16 @@
 \RequirePackage{etoolbox}
 \RequirePackage{xcolor}
 \RequirePackage[numbers]{natbib}  % For bibliography with numerical citations
+\RequirePackage[section]{placeins} % Prevent figures from floating past section boundaries
+
+% Relax float placement limits so figures stay close to their reference point
+\setcounter{topnumber}{9}
+\setcounter{bottomnumber}{9}
+\setcounter{totalnumber}{20}
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.9}
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\floatpagefraction}{0.7}
 
 % Conditional hyperref loading
 \if@hyperref
@@ -212,24 +222,24 @@
     \vspace{2in}
 
     % Author
+    \vspace{5\baselineskip}
     {\Large\bfseries\@author\par}
     
     \vfill
-    
-    % Advisor
-    \ifx\@advisor\@empty\else
-      {\large\begin{tabular}[t]{@{}r@{\hspace{0.5em}}l@{}}
-        Primary Advisor: & \@advisor \\
-        \ifx\@advisorb\@empty\else & \@advisorb \\\fi
-        \ifx\@advisorc\@empty\else & \@advisorc \\\fi
-      \end{tabular}\par}
-      \vspace{0.1in}
-    \fi
-    
-  \end{center}
-  \vspace*{\fill}
-  \begin{center}
+
+    % Advisor (removed from cover page)
+    % \ifx\@advisor\@empty\else
+    %   {\large\begin{tabular}[t]{@{}r@{\hspace{0.5em}}l@{}}
+    %     Primary Advisor: & \@advisor \\
+    %     \ifx\@advisorb\@empty\else & \@advisorb \\\fi
+    %     \ifx\@advisorc\@empty\else & \@advisorc \\\fi
+    %   \end{tabular}\par}
+    %   \vspace{0.1in}
+    % \fi
+
     {\normalsize\@submitdate\par}
+    \vspace{1\baselineskip}
+
   \end{center}
   \clearpage
   \thispagestyle{empty}% blank verso page after cover
@@ -369,11 +379,20 @@
 \setlength{\cftbeforetoctitleskip}{0pt}
 \setlength{\cftaftertoctitleskip}{1em}
 
-% Chapter formatting in TOC
+% Chapter formatting in TOC — prepend "Chapter" to numbered entries
 \renewcommand{\cftchapfont}{\bfseries}
 \renewcommand{\cftchappagefont}{\bfseries}
 \setlength{\cftbeforechapskip}{1em}
 \renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftchappresnum}{Chapter\space}
+\renewcommand{\cftchapaftersnum}{\hspace{0.5em}}
+\newlength{\mychapnumwidth}
+\settowidth{\mychapnumwidth}{\cftchapfont Chapter\space 00\hspace{0.5em}}
+\setlength{\cftchapnumwidth}{\mychapnumwidth}
+
+% Part formatting in TOC — prepend "Part I / Part II" to the title.
+% tocloft skips \cftpartpresnum when titlesec is loaded, so we
+% override the \part command to pass a custom TOC string.
 
 % Customize chapter marks to show "Chapter X. Title"
 \renewcommand{\chaptermark}[1]{\markboth{\chaptername\ \thechapter.\ #1}{}}
@@ -410,9 +429,31 @@
 [\vfill\vfill]
 \titlespacing*{\part}{0pt}{0pt}{0pt}
 
-% Make sure parts always start on right page with empty style
+% Make sure parts always start on right page with empty style.
+% Also inject "Part <num>" into the TOC entry automatically,
+% since tocloft's \cftpartpresnum is disabled when titlesec is loaded.
+% Strategy: use \part* for display (no TOC write) but give it the same
+% visual format as the unstarred \part by defining a numberless format
+% that still prints "Part <counter>".
 \let\oldpart\part
-\renewcommand{\part}{\cleardoublepage\thispagestyle{empty}\oldpart}
+\renewcommand{\part}[1]{%
+  \cleardoublepage\thispagestyle{empty}%
+  \refstepcounter{part}%
+  \phantomsection%
+  \addcontentsline{toc}{part}{Part~\thepart\hspace{0.5em}#1}%
+  % Temporarily override the starred-part format to show "Part <num>"
+  \titleformat{name=\part,numberless}[display]%
+    {\normalfont\Huge\bfseries\centering\vfill}%
+    {\partname\ \thepart}%
+    {1em}%
+    {\Huge}%
+  [\vfill\vfill]%
+  % Suppress titlesec's own TOC write for \part* (we already wrote ours above)
+  \let\saved@ttladdcontentsline\ttl@addcontentsline
+  \def\ttl@addcontentsline##1##2{}%
+  \oldpart*{#1}%
+  \let\ttl@addcontentsline\saved@ttladdcontentsline
+}
 
 % Chapter formatting
 \titleformat{\chapter}[display]
@@ -430,8 +471,10 @@
   \begingroup
   \renewcommand{\thefootnote}{\fnsymbol{footnote}}%
   \chapter[#1]{#1\protect\footnotemark}%
+  \global\let\notedchapter@currentlabel\@currentlabel
   \footnotetext{#2}%
   \endgroup
+  \let\@currentlabel\notedchapter@currentlabel
   \setcounter{footnote}{0}%
 }
 
