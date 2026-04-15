@@ -326,10 +326,8 @@
   \clearpage
   \phantomsection
   \addcontentsline{toc}{chapter}{Abstract}
-  \begin{center}
-    {\Large\bfseries Abstract\par}
-  \end{center}
-  \vspace{0.3in}
+  \chapter*{Abstract}%
+  \markboth{Abstract}{Abstract}%
 }{%
   \cleardoublepage
 }
@@ -372,12 +370,12 @@
 % TABLE OF CONTENTS, LOF, LOT
 % ============================================================================
 
-% TOC formatting
+% TOC formatting — left-aligned, same size as \chapter*
 \renewcommand{\contentsname}{Table of Contents}
-\renewcommand{\cfttoctitlefont}{\hfill\Large\bfseries}
-\renewcommand{\cftaftertoctitle}{\hfill}
+\renewcommand{\cfttoctitlefont}{\huge\bfseries}
+\renewcommand{\cftaftertoctitle}{}
 \setlength{\cftbeforetoctitleskip}{0pt}
-\setlength{\cftaftertoctitleskip}{1em}
+\setlength{\cftaftertoctitleskip}{2em}
 
 % Chapter formatting in TOC — prepend "Chapter" to numbered entries
 \renewcommand{\cftchapfont}{\bfseries}
@@ -402,19 +400,19 @@
 % Section formatting in TOC
 \setlength{\cftbeforesecskip}{0.5em}
 
-% List of Figures
+% List of Figures — left-aligned, same size as \chapter*
 \renewcommand{\listfigurename}{List of Figures}
-\renewcommand{\cftloftitlefont}{\hfill\Large\bfseries}
-\renewcommand{\cftafterloftitle}{\hfill}
+\renewcommand{\cftloftitlefont}{\huge\bfseries}
+\renewcommand{\cftafterloftitle}{}
 \setlength{\cftbeforeloftitleskip}{0pt}
-\setlength{\cftafterloftitleskip}{1em}
+\setlength{\cftafterloftitleskip}{2em}
 
-% List of Tables
+% List of Tables — left-aligned, same size as \chapter*
 \renewcommand{\listtablename}{List of Tables}
-\renewcommand{\cftlottitlefont}{\hfill\Large\bfseries}
-\renewcommand{\cftafterlottitle}{\hfill}
+\renewcommand{\cftlottitlefont}{\huge\bfseries}
+\renewcommand{\cftafterlottitle}{}
 \setlength{\cftbeforelottitleskip}{0pt}
-\setlength{\cftafterlottitleskip}{1em}
+\setlength{\cftafterlottitleskip}{2em}
 
 % ============================================================================
 % CHAPTER AND SECTION FORMATTING
@@ -657,8 +655,8 @@
 \newenvironment{nomenclature}{%
   \cleardoublepage
   \phantomsection
-  \addcontentsline{toc}{chapter}{Nomenclature}
-  \chapter*{Nomenclature}
+  \addcontentsline{toc}{chapter}{List of Symbols}
+  \chapter*{List of Symbols}
   \begin{list}{}%
   {%
     \setlength{\labelwidth}{1.5in}%
